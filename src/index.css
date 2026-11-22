@@ -202,8 +202,33 @@ html.omav-intro:not(.omav-go) main section:not(#top),
 html.omav-intro:not(.omav-go) footer {
   opacity: 0;
 }
+/* On screen from the intro's first frames: the logo and Contact */
+html.omav-intro [data-intro-early] {
+  opacity: 0;
+  animation: omavRise 1.1s cubic-bezier(0.16, 0.8, 0.2, 1) var(--intro-delay, 0s) forwards;
+}
+
+/* Hero tagline types itself out (TextType); the accent rule draws in after it */
+@keyframes omavRuleIn {
+  from {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+.omav-hero-rule {
+  transform-origin: left center;
+  opacity: 0;
+  animation: omavRuleIn 1.2s cubic-bezier(0.65, 0, 0.2, 1) 1.35s forwards;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  html.omav-intro [data-intro-reveal] {
+  html.omav-intro [data-intro-reveal],
+  html.omav-intro [data-intro-early],
+  .omav-hero-rule {
     animation: none;
     opacity: 1;
   }
@@ -561,10 +586,11 @@ html.omav-gesture .omav-chat {
   position: relative;
   display: grid;
   place-items: center;
-  width: 58px;
-  height: 58px;
-  /* A speech bubble: round, with one tighter corner */
-  border-radius: 50% 50% 9px 50%;
+  width: 74px;
+  height: 76px;
+  padding: 6px 4px 7px;
+  /* A speech bubble: soft corners, with one tighter corner */
+  border-radius: 22px 22px 7px 22px;
   background: radial-gradient(circle at 35% 25%, #1b2431 0%, #0b1018 70%);
   box-shadow:
     inset 0 0 0 1px rgb(220 228 238 / 0.2),
@@ -790,8 +816,25 @@ html.omav-gesture .omav-chat {
     bottom: 118px;
   }
   .omav-chat-launcher {
-    width: 52px;
-    height: 52px;
+    width: 62px;
+    height: 64px;
+    padding: 4px 2px 5px;
+    border-radius: 19px 19px 6px 19px;
+  }
+  .omav-chat-launcher .omav-lockup {
+    transform: scale(0.88);
+  }
+  /* Frosted bar behind the header once the page scrolls */
+  .omav-header-frost {
+    opacity: 0;
+    background: rgb(5 7 11 / 0.72);
+    backdrop-filter: blur(14px) saturate(1.2);
+    -webkit-backdrop-filter: blur(14px) saturate(1.2);
+    box-shadow: inset 0 -1px 0 rgb(233 237 243 / 0.07);
+    transition: opacity 0.35s ease;
+  }
+  .omav-header.is-scrolled .omav-header-frost {
+    opacity: 1;
   }
   /* A sheet across the screen, whatever the launcher's position */
   .omav-chat-panel {

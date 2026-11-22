@@ -70,7 +70,7 @@ export const HomePage: React.FC<HomePageProps> = ({
       </section>
 
       {/* Index of the dedicated pages */}
-      <section className="relative z-10 bg-abyss py-24 sm:py-32 border-t border-hairline overflow-hidden">
+      <section className="relative z-10 bg-abyss py-20 sm:py-32 border-t border-hairline overflow-hidden">
         {/* Glow cursor, only in this section after the story */}
         {finePointer && (
           <GlowCursor
@@ -109,18 +109,18 @@ export const HomePage: React.FC<HomePageProps> = ({
                 <button
                   type="button"
                   onClick={() => onNavigate(item.id)}
-                  className="group w-full grid grid-cols-[40px_minmax(0,1fr)_auto] items-start gap-x-5 py-7 text-left cursor-pointer rounded-[7px]"
+                  className="group w-full grid grid-cols-[28px_minmax(0,1fr)_auto] sm:grid-cols-[40px_minmax(0,1fr)_auto] items-start gap-x-3 sm:gap-x-5 py-6 sm:py-7 text-left cursor-pointer rounded-[7px]"
                 >
                   <span className="pt-1.5 font-mono text-[12px] text-slate group-hover:text-signal transition-colors duration-150">
                     0{i + 1}
                   </span>
                   <span>
-                    <span className="block font-display text-[22px] sm:text-[26px] leading-tight text-ice">{item.title}</span>
-                    <span className="mt-2 block max-w-[520px] text-[15px] leading-[1.55] text-slate">{item.body}</span>
+                    <span className="block font-display text-[21px] sm:text-[26px] leading-tight text-ice">{item.title}</span>
+                    <span className="mt-2 block max-w-[520px] text-[14.5px] sm:text-[15px] leading-[1.55] text-slate">{item.body}</span>
                   </span>
                   <span
                     aria-hidden="true"
-                    className="mt-1 grid place-items-center w-10 h-10 rounded-[10px] text-ice/60 shadow-[inset_0_0_0_1px_rgb(233_237_243/0.14)] group-hover:bg-ice group-hover:text-abyss transition-[background-color,color] duration-200"
+                    className="mt-0.5 sm:mt-1 grid place-items-center w-9 h-9 sm:w-10 sm:h-10 rounded-[10px] text-ice/60 shadow-[inset_0_0_0_1px_rgb(233_237_243/0.14)] group-hover:bg-ice group-hover:text-abyss transition-[background-color,color] duration-200"
                   >
                     <ArrowUpRight size={16} />
                   </span>

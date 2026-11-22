@@ -1,5 +1,6 @@
 import React, { Suspense, lazy, useEffect, useId, useRef, useState } from 'react';
 import { ErrorBoundary } from '../ErrorBoundary';
+import { OmavLockup } from '../OmavMark';
 
 // The floating assistant. Only this launcher loads with the page: the panel and
 // everything it knows arrive when someone hovers or opens it.
@@ -115,7 +116,7 @@ export const ChatBot: React.FC<{
         aria-label="Ask OMAV: open the site assistant"
         className="omav-chat-launcher"
       >
-        <BotMark size={38} />
+        <OmavLockup size="chat" />
         <span className="omav-chat-tip" aria-hidden="true">
           Ask OMAV
         </span>

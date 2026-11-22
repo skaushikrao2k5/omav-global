@@ -110,10 +110,13 @@ export const HowWeThinkSection: React.FC<HowWeThinkSectionProps> = () => {
               Institutional clarity is rarely built from more data. It comes from interpreting signals across
               technology, constitution and statecraft, in five moves.
             </p>
-            <ol className="mt-8 flex flex-wrap gap-x-5 gap-y-2 font-mono text-[11.5px] text-slate">
+            <ol className="mt-8 flex flex-wrap gap-x-5 gap-y-2 max-sm:gap-x-2 max-sm:gap-y-2 font-mono text-[11.5px] text-slate">
               {STEPS.map((s, i) => (
                 <li key={s.id}>
-                  <a href={`#${s.id}`} className="hover:text-ice transition-colors duration-150 rounded-[4px]">
+                  <a
+                    href={`#${s.id}`}
+                    className="hover:text-ice transition-colors duration-150 rounded-[4px] max-sm:inline-flex max-sm:items-center max-sm:min-h-9 max-sm:px-3 max-sm:rounded-full max-sm:bg-ice/[0.04] max-sm:shadow-[inset_0_0_0_1px_rgb(233_237_243/0.1)]"
+                  >
                     <span className="text-signal">0{i + 1}</span> {s.title}
                   </a>
                 </li>

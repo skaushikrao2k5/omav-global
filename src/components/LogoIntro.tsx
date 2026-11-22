@@ -38,21 +38,45 @@ export const LogoIntro: React.FC = () => {
     let fitW = 0;
     let fitH = 0;
     let fitS = 1;
+    let fitKey = '';
+    // The headline is on screen during the intro, so the emblem builds where the
+    // Earth will rest (right of the copy on wide screens, below it on phones)
+    // rather than over the text.
     const fit = () => {
       const W = layer.clientWidth;
       const H = layer.clientHeight;
-      if (!W || !H || (W === fitW && H === fitH)) return;
+      const L = introBridge.lay;
+      const key = `${W}x${H}:${L ? `${L.gx.toFixed(3)},${L.gy.toFixed(3)},${L.W}` : '-'}`;
+      if (!W || !H || key === fitKey) return;
+      fitKey = key;
       fitW = W;
       fitH = H;
-      const vw = window.innerWidth || W;
-      const vh = window.innerHeight || H;
-      const mw = Math.max(240, Math.min(390, Math.min(vw * 0.28, vh * 0.46)));
+      const wide = W / H >= 1.05;
+      const mw = wide
+        ? Math.max(200, Math.min(360, W * 0.24, H * 0.42))
+        : Math.max(170, Math.min(250, W * 0.6, H * 0.3));
       fitS = mw / 300;
+      const half = mw * 0.5;
+      let cx = W / 2;
+      let cy = H * 0.6;
+      if (wide) {
+        let tx = W * 0.75;
+        let ty = H / 2;
+        if (L && L.W === W) {
+          const wpp = (2 * L.hh) / L.H;
+          tx = W / 2 + L.gx / wpp;
+          ty = H / 2 - L.gy / wpp;
+        }
+        // Clear of the headline column, and fully on screen
+        cx = Math.min(Math.max(tx, W * 0.52 + 80 + half), W - half - 24);
+        cy = Math.min(Math.max(ty, H * 0.4), H * 0.6);
+      }
+      // Emblem point (0, DOT_CY) maps to (cx, cy)
       svg.setAttribute(
         'viewBox',
-        [-W / (2 * fitS), 36 - H / (2 * fitS), W / fitS, H / fitS].map((v) => v.toFixed(3)).join(' ')
+        [-cx / fitS, DOT_CY - cy / fitS, W / fitS, H / fitS].map((v) => v.toFixed(3)).join(' ')
       );
-      introBridge.setDot({ x: W / 2, y: H / 2 + (DOT_CY - 36) * fitS, r: DOT_R * fitS });
+      introBridge.setDot({ x: cx, y: cy, r: DOT_R * fitS });
     };
 
     const n = (v: number) => String(Math.round(v * 1000) / 1000);
@@ -65,7 +89,7 @@ export const LogoIntro: React.FC = () => {
       const C = introBridge.cam;
       const { seg, outExpo: oe, outQuint: oq, outCubic: oc, inOutCubic: ioc, inOutSine: ios } = K;
       // The emblem resolves out only once the globe is recognisable, keyed to the camera
-      const gA = 1 - K.smoother(TL.GA0, TL.GA1, C.lnz || 0);
+      const gA = (1 - K.smoother(TL.GA0, TL.GA1, C.lnz || 0)) * (1 - K.smooth(TL.CAM1 - 0.6, TL.CAM1, t));
       const opA = (el: Element | undefined, v: number) => op(el, v * gA);
 
       // Focus stays on the Earth as it comes forward, so the receding emblem

@@ -89,9 +89,15 @@ export const K = {
   camEase: bezier(0.3, 0.0, 0.5, 1.0),
 };
 
-// Logo construction (0 to 4.0 s), then the blue centre becomes the Earth in one
-// continuous shot timed from T0.
-const T0 = 4.3;
+// Logo construction, then the blue centre becomes the Earth in one continuous
+// shot timed from T0. The headline and Contact are on screen throughout, so the
+// whole sequence is kept brisk: construction is compressed by F, the Earth
+// hand-over by P (about 4 s in all, down from about 7 s).
+const F = 0.55;
+const P = 0.75;
+const f = (v: number) => Math.round(v * F * 1000) / 1000;
+const T0 = f(4.3);
+const p = (v: number) => Math.round((T0 + v * P) * 1000) / 1000;
 export const TL = {
   BANDS: [
     [-100, -73.854],
@@ -103,30 +109,30 @@ export const TL = {
     [38.841, 45.385],
     [47.761, 60],
   ],
-  HZ0: 0.1, HZ1: 1.05, HZF0: 1.3, HZF1: 2.35,
-  B: [0.3, 0.38, 0.46, 0.54, 1.62, 1.68, 1.74, 1.8], BDUR: 1.0, THK0: 0.42, THK1: 1.02,
-  RING0: 0.95, RING1: 1.6, RINGF0: 1.75, RINGF1: 2.4,
-  DOT0: 1.12, DOT1: 1.75,
-  W0: 1.38, W1: 2.42, LAG: 0.07,
-  LENS0: 1.78, LENS1: 2.62,
-  NIB0: 2.08, NIB1: 2.7,
-  DROP0: 2.45,
-  LET0: 2.52, LETS: 0.07, LETD: 0.95,
-  MOT0: 2.95, MOT1: 3.75,
-  SH0: 3.1, SH1: 4.0,
-  SKIP0: 0.8,
+  HZ0: f(0.1), HZ1: f(1.05), HZF0: f(1.3), HZF1: f(2.35),
+  B: [0.3, 0.38, 0.46, 0.54, 1.62, 1.68, 1.74, 1.8].map(f), BDUR: f(1.0), THK0: f(0.42), THK1: f(1.02),
+  RING0: f(0.95), RING1: f(1.6), RINGF0: f(1.75), RINGF1: f(2.4),
+  DOT0: f(1.12), DOT1: f(1.75),
+  W0: f(1.38), W1: f(2.42), LAG: f(0.07),
+  LENS0: f(1.78), LENS1: f(2.62),
+  NIB0: f(2.08), NIB1: f(2.7),
+  DROP0: f(2.45),
+  LET0: f(2.52), LETS: f(0.07), LETD: f(0.95),
+  MOT0: f(2.95), MOT1: f(3.75),
+  SH0: f(3.1), SH1: f(4.0),
+  SKIP0: 0.6,
   T0,
   HOLD: T0,
-  FADE1: T0 + 0.12,
-  DEPTH0: T0 + 0.05, DEPTH1: T0 + 0.55,
-  EARTH0: T0 + 0.2, EARTH1: T0 + 1.2,
-  LAND0: T0 + 0.35, LAND1: T0 + 1.2,
-  CLOUD0: T0 + 0.5, CLOUD1: T0 + 1.35,
-  NIGHT0: T0 + 0.9, NIGHT1: T0 + 1.9,
-  ATMO0: T0 + 0.15, ATMO1: T0 + 1.2,
-  CAM0: T0 + 0.35, CAM1: T0 + 2.65,
-  GO: T0 + 1.95, NET0: T0 + 2.3, NET1: T0 + 3.6,
-  SKIP1: T0 + 1.5, END: T0 + 2.75,
+  FADE1: p(0.12),
+  DEPTH0: p(0.05), DEPTH1: p(0.55),
+  EARTH0: p(0.2), EARTH1: p(1.2),
+  LAND0: p(0.35), LAND1: p(1.2),
+  CLOUD0: p(0.5), CLOUD1: p(1.35),
+  NIGHT0: p(0.9), NIGHT1: p(1.9),
+  ATMO0: p(0.15), ATMO1: p(1.2),
+  CAM0: p(0.35), CAM1: p(2.65),
+  GO: p(1.2), NET0: p(2.3), NET1: p(3.6),
+  SKIP1: p(1.5), END: p(2.75),
   // Emblem share of the camera push (Earth scale ^ BETA): the Earth travels
   // towards the viewer, the emblem stays behind it and resolves out between
   // these Earth zoom factors.
@@ -134,7 +140,7 @@ export const TL = {
 };
 
 const SKIP_SPEED = 6.5;
-const MAX_HOLD = 6; // seconds to wait at T0 for the Earth textures
+const MAX_HOLD = 2.5; // seconds to wait at T0 for the Earth textures
 
 type Listener = () => void;
 const listeners = new Set<Listener>();
@@ -221,6 +227,9 @@ export const introBridge = {
   get cam() {
     return state.cam;
   },
+  get lay() {
+    return state.lay;
+  },
   // Intro time that keeps running after the intro ends, for the network fade-in
   clock(now: number) {
     return state.mode === 'done' ? state.t + Math.max(0, now - state.endNow) / 1000 : state.t;
@@ -280,3 +289,4 @@ export const introBridge = {
     };
   },
 };
+

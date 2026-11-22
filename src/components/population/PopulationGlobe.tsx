@@ -314,6 +314,15 @@ export default function PopulationGlobe({
   const moreRef = useRef<HTMLDivElement | null>(null);
   const moreBtnRef = useRef<HTMLButtonElement | null>(null);
   const [coarse] = useState(() => !!window.matchMedia?.('(pointer: coarse)').matches);
+  // Phones: the dock centres on the screen and Day / Night go icon-only
+  const [narrow, setNarrow] = useState(() => !!window.matchMedia?.('(max-width: 639px)').matches);
+  useEffect(() => {
+    const mq = window.matchMedia?.('(max-width: 639px)');
+    if (!mq) return;
+    const on = () => setNarrow(mq.matches);
+    mq.addEventListener('change', on);
+    return () => mq.removeEventListener('change', on);
+  }, []);
 
   live.current = { opacity, showPop, nightLights, basemap };
   const requestRender = () => viewerRef.current?.scene.requestRender();
@@ -1051,8 +1060,8 @@ export default function PopulationGlobe({
       >
         {/* Dock: zoom, day/night and more, centred under the globe */}
         <div
-          className="absolute z-10 bottom-6 -translate-x-1/2 transition-[left] duration-[900ms] ease-[cubic-bezier(.22,.7,.2,1)]"
-          style={{ left: home && !explore && !gesture ? `calc(50% + ${home.dx}px)` : '50%' }}
+          className="omav-dock absolute z-10 bottom-6 max-sm:bottom-[calc(34px+env(safe-area-inset-bottom))] w-max -translate-x-1/2 transition-[left] duration-[900ms] ease-[cubic-bezier(.22,.7,.2,1)]"
+          style={{ left: home && !explore && !gesture && !narrow ? `calc(50% + ${home.dx}px)` : '50%' }}
         >
           {moreOpen && (
             <div
@@ -1146,7 +1155,7 @@ export default function PopulationGlobe({
             </div>
           )}
 
-          <div className="surface flex items-center gap-1.5 rounded-[14px] p-1.5">
+          <div className="surface flex flex-nowrap items-center gap-1.5 rounded-[14px] p-1.5">
             <div className="flex rounded-[10px] bg-ice/[0.06] p-[3px]">
               <DockButton label="Zoom out" onClick={() => zoom(-1)}>
                 <Minus size={15} />
@@ -1158,8 +1167,16 @@ export default function PopulationGlobe({
             <RubberSegment
               size="md"
               items={[
-                { value: 'day', label: 'Day', icon: <Sun size={13} /> },
-                { value: 'night', label: 'Night', icon: <Moon size={13} /> },
+                {
+                  value: 'day',
+                  label: narrow ? <span className="sr-only">Day</span> : 'Day',
+                  icon: <Sun size={narrow ? 15 : 13} />,
+                },
+                {
+                  value: 'night',
+                  label: narrow ? <span className="sr-only">Night</span> : 'Night',
+                  icon: <Moon size={narrow ? 15 : 13} />,
+                },
               ]}
               value={nightLights ? 'night' : 'day'}
               onChange={(v) => setNightLights(v === 'night')}
@@ -1208,7 +1225,7 @@ export default function PopulationGlobe({
         )}
 
         {coarse && !inputOn && (
-          <div className="pointer-events-none absolute z-10 left-1/2 -translate-x-1/2 bottom-[84px] px-3 py-1.5 rounded-full surface text-[11px] text-slate">
+          <div className="pointer-events-none absolute z-10 left-1/2 -translate-x-1/2 bottom-[84px] max-sm:bottom-[96px] px-3 py-1.5 rounded-full surface text-[11px] text-slate">
             Tap the globe to explore
           </div>
         )}
@@ -1360,7 +1377,7 @@ function DockButton({ label, onClick, children }: { label: string; onClick: () =
       onClick={onClick}
       aria-label={label}
       title={label}
-      className="grid place-items-center w-[30px] h-[30px] rounded-[7px] text-ice/75 hover:text-ice hover:bg-ice/[0.08] active:scale-95 transition-[color,background-color,transform] duration-150 cursor-pointer"
+      className="grid place-items-center w-[30px] h-[30px] max-sm:w-9 max-sm:h-9 rounded-[7px] text-ice/75 hover:text-ice hover:bg-ice/[0.08] active:scale-95 transition-[color,background-color,transform] duration-150 cursor-pointer"
     >
       {children}
     </button>
