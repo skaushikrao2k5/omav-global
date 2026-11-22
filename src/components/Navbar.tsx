@@ -3,6 +3,7 @@ import { ArrowUpRight } from 'lucide-react';
 import { OmavLockup } from './OmavMark';
 import PillNav from './ui/PillNav';
 import { GestureToggle } from './GestureControl';
+import { useContent } from '../content/content';
 
 interface NavbarProps {
   currentPage: string;
@@ -10,13 +11,7 @@ interface NavbarProps {
   onRequestBriefing: () => void;
 }
 
-const NAV_ITEMS = [
-  { label: 'Home', href: '#home' },
-  { label: 'Solutions', href: '#solutions' },
-  { label: 'Expertise', href: '#expertise' },
-  { label: 'Approach', href: '#approach' },
-  { label: 'About', href: '#about' },
-];
+const NAV_PAGES = ['home', 'solutions', 'expertise', 'approach', 'about'] as const;
 
 // PillNav renders plain anchors; route their clicks through the app instead
 const navTarget: { go: ((page: string) => void) | null } = { go: null };
@@ -39,6 +34,11 @@ const NavAnchor = React.forwardRef<HTMLAnchorElement, React.AnchorHTMLAttributes
 NavAnchor.displayName = 'NavAnchor';
 
 export const Navbar: React.FC<NavbarProps> = ({ currentPage, onNavigate, onRequestBriefing }) => {
+  const nav = useContent().siteSettings.navigation;
+  const navItems = React.useMemo(
+    () => NAV_PAGES.map((page) => ({ label: nav[page], href: `#${page}` })),
+    [nav]
+  );
   navTarget.go = (page) => {
     onNavigate(page);
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -77,7 +77,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPage, onNavigate, onReque
           className="min-w-0 flex-1"
         >
           <PillNav
-            items={NAV_ITEMS}
+            items={navItems}
             activeHref={`#${currentPage}`}
             linkComponent={NavAnchor}
             itemStyle="pill"
@@ -114,7 +114,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPage, onNavigate, onReque
             style={{ '--intro-delay': '0.55s' } as React.CSSProperties}
             className="btn btn-primary btn-sm shrink-0"
           >
-            Contact
+            {nav.contactButton}
             <span className="btn-icon" aria-hidden="true">
               <ArrowUpRight size={15} />
             </span>

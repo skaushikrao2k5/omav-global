@@ -4,29 +4,10 @@ import { HeroSection } from '../components/HeroSection';
 import { HowWeThinkSection } from '../components/HowWeThinkSection';
 import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import GlowCursor from '../components/ui/GlowCursor';
+import { useContent } from '../content/content';
 
-const PORTAL = [
-  {
-    id: 'solutions',
-    title: 'Solutions & systems',
-    body: 'AI voice agents, contract intelligence, predictive policing and constitutional recruitment engines in production.',
-  },
-  {
-    id: 'expertise',
-    title: 'Expertise',
-    body: 'Six advisory domains where artificial intelligence, statutory law and public policy intersect.',
-  },
-  {
-    id: 'approach',
-    title: 'Approach',
-    body: 'Intelligence, advisory, global perspective and institutional credibility behind every engagement.',
-  },
-  {
-    id: 'about',
-    title: 'About & founders',
-    body: 'The OMAV mark, the ॥ अधिकाराणां कृते ॥ motto, and the leadership of Priya Lalwani and Varad Ozarkar.',
-  },
-];
+// Index rows link to the inner pages in this order
+const PORTAL_PAGES = ['solutions', 'expertise', 'approach', 'about'];
 
 interface HomePageProps {
   accentColor?: string;
@@ -39,6 +20,8 @@ export const HomePage: React.FC<HomePageProps> = ({
   onRequestBriefing,
   onNavigate,
 }) => {
+  const index = useContent().homePage.index;
+  const PORTAL = index.items.map((item, i) => ({ ...item, id: PORTAL_PAGES[i] ?? item.id }));
   const storyRef = React.useRef<HTMLDivElement | null>(null);
   const [finePointer] = React.useState(
     () => !!window.matchMedia?.('(hover: hover) and (pointer: fine)').matches
@@ -90,13 +73,11 @@ export const HomePage: React.FC<HomePageProps> = ({
         <div className="relative z-[1] max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-14 grid lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] gap-12 lg:gap-20">
           <div className="max-w-[460px]">
             <h2 className="text-[clamp(28px,3vw,44px)] leading-[1.05] text-ice">
-              Sovereign intelligence across technology, law and statecraft.
+              {index.title}
             </h2>
-            <p className="mt-5 text-[17px] leading-[1.6] text-ice/70">
-              Our practices, deployed systems, operating philosophy and the people behind them.
-            </p>
+            <p className="mt-5 text-[17px] leading-[1.6] text-ice/70">{index.body}</p>
             <button type="button" onClick={onRequestBriefing} className="btn btn-primary mt-9">
-              Request a briefing
+              {index.button}
               <span className="btn-icon" aria-hidden="true">
                 <ArrowRight size={15} />
               </span>

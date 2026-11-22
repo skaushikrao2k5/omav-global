@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { ArrowRight, ArrowUp, ChevronDown, Mail, X } from 'lucide-react';
 import { Bullet } from '../page/PageParts';
 import { BotMark } from './ChatBot';
+import { useContent } from '../../content/content';
 import { ask, buildIndex, type ChatAction, type ChatIndex, type Entry, type Reply } from './chatEngine';
 import { EMAIL, FALLBACKS, FAQ_GROUPS, FAQS, STARTERS, briefing, loadKnowledge } from './chatKnowledge';
 
@@ -60,9 +61,10 @@ const ChatPanel: React.FC<{
   const inputRef = useRef<HTMLInputElement | null>(null);
   const panelRef = useRef<HTMLDivElement | null>(null);
 
+  const content = useContent();
   useEffect(() => {
     let alive = true;
-    loadKnowledge().then((entries) => {
+    loadKnowledge(content).then((entries) => {
       if (!alive) return;
       indexRef.current = buildIndex(entries);
       setKnowledge(entries);
@@ -71,7 +73,7 @@ const ChatPanel: React.FC<{
       alive = false;
       window.clearTimeout(timer.current);
     };
-  }, []);
+  }, [content]);
 
   const byId = useMemo(() => new Map(knowledge.map((e) => [e.id, e])), [knowledge]);
   const pick = (ids: string[]) => ids.map((id) => byId.get(id)).filter((e): e is Entry => !!e);

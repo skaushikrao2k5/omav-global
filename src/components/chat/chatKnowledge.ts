@@ -1,4 +1,5 @@
 import type { ChatAction, Entry } from './chatEngine';
+import type { SiteContent } from '../../content/content';
 
 // What the site assistant knows. Page content is read from the same data the
 // pages render, so an edit there reaches the assistant too. The FAQs below are
@@ -362,20 +363,18 @@ const SYNONYMS: Record<string, string[]> = {
 
 const kw = (title: string, ...more: string[]) => [...(SYNONYMS[title] ?? []), ...more];
 
-// Everything the pages say, as one searchable list. Falls back to the FAQs
-// alone if a page's code can't be loaded.
-export async function loadKnowledge(): Promise<Entry[]> {
+// Everything the pages say, as one searchable list, built from the same content
+// the pages render (Sanity, falling back to the built-in text)
+export async function loadKnowledge(c: SiteContent): Promise<Entry[]> {
   try {
-    const [sol, exp, app, abt, how] = await Promise.all([
-      import('../../pages/SolutionsPage'),
-      import('../../pages/ExpertisePage'),
-      import('../../pages/ApproachPage'),
-      import('../../pages/AboutPage'),
-      import('../HowWeThinkSection'),
-    ]);
+    const sol = c.solutionsPage;
+    const exp = c.expertisePage;
+    const app = c.approachPage;
+    const abt = c.aboutPage;
+    const steps = c.homePage.story.steps;
     return [
       ...FAQS,
-      ...sol.PLATFORMS.map(
+      ...sol.platforms.items.map(
         (x, i): Entry => ({
           id: `platform-${i}`,
           title: x.title,
@@ -385,27 +384,27 @@ export async function loadKnowledge(): Promise<Entry[]> {
           action: page('solutions', 'See it on Solutions', 'platforms'),
         })
       ),
-      ...sol.CAPABILITIES.map(
+      ...sol.capabilities.items.map(
         (x, i): Entry => ({
           id: `capability-${i}`,
           title: x.title,
           topic: 'Capabilities',
           keywords: kw(x.title),
-          body: [p(x.desc)],
+          body: [p(x.description)],
           action: page('solutions', 'See our capabilities', 'capabilities'),
         })
       ),
-      ...sol.PHASES.map(
+      ...sol.delivery.phases.map(
         (x, i): Entry => ({
           id: `phase-${i}`,
           title: x.name,
-          topic: `Delivery, phase ${i + 1} of ${sol.PHASES.length}`,
+          topic: `Delivery, phase ${i + 1} of ${sol.delivery.phases.length}`,
           keywords: kw(x.name),
           body: [p(x.description), { type: 'list', items: x.points }],
           action: page('solutions', 'See how we deliver', 'delivery'),
         })
       ),
-      ...exp.PRACTICES.map(
+      ...exp.practices.items.map(
         (x, i): Entry => ({
           id: `practice-${i}`,
           title: x.title,
@@ -420,7 +419,7 @@ export async function loadKnowledge(): Promise<Entry[]> {
           action: page('expertise', 'See it on Expertise', 'practices'),
         })
       ),
-      ...app.PILLARS.map(
+      ...app.pillars.items.map(
         (x, i): Entry => ({
           id: `pillar-${i}`,
           title: x.title,
@@ -430,17 +429,17 @@ export async function loadKnowledge(): Promise<Entry[]> {
           action: page('approach', 'See our approach', 'pillars'),
         })
       ),
-      ...app.STANDARDS.map(
+      ...app.standards.items.map(
         (x, i): Entry => ({
           id: `standard-${i}`,
           title: x.title,
           topic: 'Our standards',
           keywords: kw(x.title),
-          body: [p(x.desc)],
+          body: [p(x.description)],
           action: page('approach', 'See our standards', 'standards'),
         })
       ),
-      ...abt.FOUNDERS.map(
+      ...abt.founders.people.map(
         (x, i): Entry => ({
           id: `founder-${i}`,
           title: x.name,
@@ -450,7 +449,7 @@ export async function loadKnowledge(): Promise<Entry[]> {
           action: page('about', 'See the founders', 'founders'),
         })
       ),
-      ...abt.MILESTONES.map(
+      ...abt.recognition.milestones.map(
         (x, i): Entry => ({
           id: `milestone-${i}`,
           title: x.title,
@@ -460,14 +459,14 @@ export async function loadKnowledge(): Promise<Entry[]> {
           action: page('about', 'See the recognition', 'recognition'),
         })
       ),
-      ...how.STEPS.map(
+      ...steps.map(
         (x, i): Entry => ({
           id: `step-${i}`,
           title: x.title,
-          topic: `How we think, step ${i + 1} of ${how.STEPS.length}`,
+          topic: `How we think, step ${i + 1} of ${steps.length}`,
           keywords: kw(x.title),
           body: [p(x.body)],
-          action: page('home', 'See it on the home page', x.id),
+          action: page('home', 'See it on the home page', x.id || 'how'),
         })
       ),
     ];

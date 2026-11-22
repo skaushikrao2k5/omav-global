@@ -1,6 +1,7 @@
 import React, { Suspense, lazy, useEffect, useId, useRef, useState } from 'react';
 import { ErrorBoundary } from '../ErrorBoundary';
 import { OmavLockup } from '../OmavMark';
+import { useContent } from '../../content/content';
 
 // The floating assistant. Only this launcher loads with the page: the panel and
 // everything it knows arrive when someone hovers or opens it.
@@ -58,6 +59,7 @@ export const ChatBot: React.FC<{
   onNavigate: (page: string) => void;
   onRequestBriefing: () => void;
 }> = ({ currentPage, onNavigate, onRequestBriefing }) => {
+  const tip = useContent().siteSettings.assistant.launcherTip;
   const [open, setOpen] = useState(false);
   const [everOpened, setEverOpened] = useState(false);
   const [raised, setRaised] = useState(false);
@@ -113,12 +115,12 @@ export const ChatBot: React.FC<{
         onClick={show}
         onPointerEnter={loadPanel}
         onFocus={loadPanel}
-        aria-label="Ask OMAV: open the site assistant"
+        aria-label={`${tip}: open the site assistant`}
         className="omav-chat-launcher"
       >
         <OmavLockup size="chat" />
         <span className="omav-chat-tip" aria-hidden="true">
-          Ask OMAV
+          {tip}
         </span>
       </button>
     </div>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useContent } from '../content/content';
 
 interface HowWeThinkSectionProps {
   accentColor?: string;
@@ -6,67 +7,6 @@ interface HowWeThinkSectionProps {
 
 // Each scene's key explains what the globe is showing at that moment
 type KeyMark = { shape: 'dot' | 'square' | 'diamond' | 'line' | 'ring'; tone: 'signal' | 'ember' | 'ice'; label: string };
-
-export const STEPS: {
-  id: string;
-  title: string;
-  body: string;
-  keyTitle: string;
-  marks: KeyMark[];
-}[] = [
-  {
-    id: 'data',
-    title: 'Data',
-    body: 'The world produces more information than any institution can read. We begin with what is openly knowable: law, policy, research, markets and public sources.',
-    keyTitle: 'Open data moving between 28 hubs',
-    marks: [
-      { shape: 'dot', tone: 'signal', label: 'Signals' },
-      { shape: 'square', tone: 'ember', label: 'Records' },
-      { shape: 'diamond', tone: 'ice', label: 'Media' },
-    ],
-  },
-  {
-    id: 'intelligence',
-    title: 'Intelligence',
-    body: 'We connect it. Patterns, actors and dependencies emerge when information is read across disciplines rather than within them.',
-    keyTitle: 'The densest settlements, read as one network',
-    marks: [
-      { shape: 'dot', tone: 'ember', label: 'Settlement' },
-      { shape: 'line', tone: 'signal', label: 'Connection' },
-    ],
-  },
-  {
-    id: 'understanding',
-    title: 'Understanding',
-    body: 'We interpret it through the lenses of law, technology and governance, until the picture is clear enough to act on.',
-    keyTitle: 'Raw signal, resolved by the lens',
-    marks: [
-      { shape: 'line', tone: 'ice', label: 'Lens' },
-      { shape: 'dot', tone: 'signal', label: 'Resolved density' },
-    ],
-  },
-  {
-    id: 'strategy',
-    title: 'Strategy',
-    body: 'We turn understanding into direction: policy positions, governance frameworks, partnerships and programmes with a clear line of sight to outcomes.',
-    keyTitle: 'Many candidate routes, seven kept, one destination',
-    marks: [
-      { shape: 'line', tone: 'ice', label: 'Candidate' },
-      { shape: 'line', tone: 'ember', label: 'Chosen route' },
-      { shape: 'ring', tone: 'ember', label: 'Objective' },
-    ],
-  },
-  {
-    id: 'impact',
-    title: 'Impact',
-    body: 'And we stay through delivery, because advice only matters when it changes what happens next.',
-    keyTitle: 'Reach, spreading across settled land',
-    marks: [
-      { shape: 'ring', tone: 'ember', label: 'Wavefront' },
-      { shape: 'dot', tone: 'ember', label: 'People reached' },
-    ],
-  },
-];
 
 // Text sits opposite the globe, which alternates left / right per scene
 const TEXT_RIGHT = [true, false, true, false, true];
@@ -97,19 +37,25 @@ const lightGlass = (e: React.PointerEvent<HTMLDivElement>) => {
 };
 const dimGlass = (e: React.PointerEvent<HTMLDivElement>) => e.currentTarget.style.setProperty('--glow', '0');
 
+// The globe's five scenes are keyed to these section ids, whatever the text says
+const SCENE_IDS = ['data', 'intelligence', 'understanding', 'strategy', 'impact'];
+
 export const HowWeThinkSection: React.FC<HowWeThinkSectionProps> = () => {
+  const story = useContent().homePage.story;
+  const STEPS = story.steps.slice(0, 5).map((s, i) => ({
+    ...s,
+    id: SCENE_IDS[i],
+    marks: s.marks as KeyMark[],
+  }));
   return (
     <div className="relative">
       <div id="how" className="min-h-[80vh] flex items-center">
         <div className="w-full max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-14">
           <div className="max-w-[560px] pointer-events-auto">
             <h2 className="text-[clamp(28px,3.2vw,46px)] leading-[1.05] text-ice">
-              From scattered signals to decisions that hold.
+              {story.title}
             </h2>
-            <p className="mt-5 max-w-[480px] text-[17px] leading-[1.6] text-ice/70">
-              Institutional clarity is rarely built from more data. It comes from interpreting signals across
-              technology, constitution and statecraft, in five moves.
-            </p>
+            <p className="mt-5 max-w-[480px] text-[17px] leading-[1.6] text-ice/70">{story.intro}</p>
             <ol className="mt-8 flex flex-wrap gap-x-5 gap-y-2 max-sm:gap-x-2 max-sm:gap-y-2 font-mono text-[11.5px] text-slate">
               {STEPS.map((s, i) => (
                 <li key={s.id}>

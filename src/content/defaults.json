@@ -1,0 +1,523 @@
+{
+  "siteSettings": {
+    "navigation": {
+      "home": "Home",
+      "solutions": "Solutions",
+      "expertise": "Expertise",
+      "approach": "Approach",
+      "about": "About",
+      "contactButton": "Contact"
+    },
+    "contact": {
+      "title": "Begin a conversation.",
+      "body": "For advisory mandates, public systems modernization, research collaborations and speaking enquiries, write to us directly.",
+      "emailLabel": "Advisory desk",
+      "email": "contact@omavglobal.com",
+      "officesLabel": "Offices",
+      "offices": "New York · Mumbai",
+      "formButton": "Write to OMAV through the briefing form"
+    },
+    "footer": {
+      "copyright": "© 2026 OMAV Global Ventures Pvt. Ltd.",
+      "homeLink": "Home",
+      "solutionsLink": "Solutions",
+      "expertiseLink": "Expertise",
+      "approachLink": "Approach",
+      "aboutLink": "About & Founders",
+      "backToTop": "Back to top"
+    },
+    "assistant": {
+      "launcherTip": "Ask OMAV"
+    }
+  },
+
+  "homePage": {
+    "hero": {
+      "line1": "Understanding complexity.",
+      "line2": "Shaping what comes next.",
+      "subtitle": "AI-driven intelligence for governance and public systems, so institutions serve citizens more securely and efficiently.",
+      "liveLayerLabel": "Live layer:",
+      "liveLayerValue": "Population Density, 2020, on a 1 km grid.",
+      "liveLayerSource": "Source: NASA SEDAC.",
+      "scrollCue": "Scroll · Data to impact"
+    },
+    "story": {
+      "title": "From scattered signals to decisions that hold.",
+      "intro": "Institutional clarity is rarely built from more data. It comes from interpreting signals across technology, constitution and statecraft, in five moves.",
+      "steps": [
+        {
+          "id": "data",
+          "title": "Data",
+          "body": "The world produces more information than any institution can read. We begin with what is openly knowable: law, policy, research, markets and public sources.",
+          "keyTitle": "Open data moving between 28 hubs",
+          "marks": [
+            { "shape": "dot", "tone": "signal", "label": "Signals" },
+            { "shape": "square", "tone": "ember", "label": "Records" },
+            { "shape": "diamond", "tone": "ice", "label": "Media" }
+          ]
+        },
+        {
+          "id": "intelligence",
+          "title": "Intelligence",
+          "body": "We connect it. Patterns, actors and dependencies emerge when information is read across disciplines rather than within them.",
+          "keyTitle": "The densest settlements, read as one network",
+          "marks": [
+            { "shape": "dot", "tone": "ember", "label": "Settlement" },
+            { "shape": "line", "tone": "signal", "label": "Connection" }
+          ]
+        },
+        {
+          "id": "understanding",
+          "title": "Understanding",
+          "body": "We interpret it through the lenses of law, technology and governance, until the picture is clear enough to act on.",
+          "keyTitle": "Raw signal, resolved by the lens",
+          "marks": [
+            { "shape": "line", "tone": "ice", "label": "Lens" },
+            { "shape": "dot", "tone": "signal", "label": "Resolved density" }
+          ]
+        },
+        {
+          "id": "strategy",
+          "title": "Strategy",
+          "body": "We turn understanding into direction: policy positions, governance frameworks, partnerships and programmes with a clear line of sight to outcomes.",
+          "keyTitle": "Many candidate routes, seven kept, one destination",
+          "marks": [
+            { "shape": "line", "tone": "ice", "label": "Candidate" },
+            { "shape": "line", "tone": "ember", "label": "Chosen route" },
+            { "shape": "ring", "tone": "ember", "label": "Objective" }
+          ]
+        },
+        {
+          "id": "impact",
+          "title": "Impact",
+          "body": "And we stay through delivery, because advice only matters when it changes what happens next.",
+          "keyTitle": "Reach, spreading across settled land",
+          "marks": [
+            { "shape": "ring", "tone": "ember", "label": "Wavefront" },
+            { "shape": "dot", "tone": "ember", "label": "People reached" }
+          ]
+        }
+      ]
+    },
+    "index": {
+      "title": "Sovereign intelligence across technology, law and statecraft.",
+      "body": "Our practices, deployed systems, operating philosophy and the people behind them.",
+      "button": "Request a briefing",
+      "items": [
+        {
+          "id": "solutions",
+          "title": "Solutions & systems",
+          "body": "AI voice agents, contract intelligence, predictive policing and constitutional recruitment engines in production."
+        },
+        {
+          "id": "expertise",
+          "title": "Expertise",
+          "body": "Six advisory domains where artificial intelligence, statutory law and public policy intersect."
+        },
+        {
+          "id": "approach",
+          "title": "Approach",
+          "body": "Intelligence, advisory, global perspective and institutional credibility behind every engagement."
+        },
+        {
+          "id": "about",
+          "title": "About & founders",
+          "body": "The OMAV mark, the ॥ अधिकाराणां कृते ॥ motto, and the leadership of Priya Lalwani and Varad Ozarkar."
+        }
+      ]
+    }
+  },
+
+  "solutionsPage": {
+    "hero": {
+      "title": "Transforming governance through AI-driven intelligence and technology.",
+      "lede": "We bridge the gap between private innovation and public sector transformation, helping governments and institutions serve citizens more securely and efficiently.",
+      "tags": ["AI voice bots", "Contract intelligence", "Predictive policing", "Digital governance"]
+    },
+    "platforms": {
+      "title": "Platforms in production.",
+      "lede": "From automated law-enforcement dispatchers to state cyber-crime call hubs and border data integrity, our platforms deliver sovereign operational capability.",
+      "allFilterLabel": "All",
+      "filters": [
+        { "category": "Digital Transformation", "label": "Digital" },
+        { "category": "Software & AI Bots", "label": "AI" },
+        { "category": "Cyber & Predictive Policing", "label": "Cyber" },
+        { "category": "Cloud & Sovereign", "label": "Sovereign" },
+        { "category": "Managed Infrastructure", "label": "Managed" }
+      ],
+      "items": [
+        {
+          "title": "AI Voice Bots & Citizen Services",
+          "category": "Software & AI Bots",
+          "description": "Conversational intelligence platforms deployed across public call centers and emergency lines. Enables automated, constitutional grievance recording and rapid citizen support.",
+          "deliverables": [
+            "Multilingual dialect processing across regions",
+            "Verified automated incident triage and dispatch",
+            "Constitutional privacy and audit logs"
+          ],
+          "impact": "Millions of citizen interactions handled with sub-second response times"
+        },
+        {
+          "title": "Contract Intelligence & Legal Tech",
+          "category": "Digital Transformation",
+          "description": "Autonomous legal intelligence scanning public procurement contracts, tenders, and legislative mandates. Flags statutory discrepancies and prevents regulatory liability.",
+          "deliverables": [
+            "Statutory & constitutional compliance auditing",
+            "Automated clause verification & discrepancy flags",
+            "Cross-departmental procurement harmonization"
+          ],
+          "impact": "Drastic reduction in public-sector contract disputes and compliance turnaround"
+        },
+        {
+          "title": "Cyber Intelligence & Predictive Policing",
+          "category": "Cyber & Predictive Policing",
+          "description": "Mission-critical cybersecurity and investigative analytics that empower law enforcement and intelligence agencies to detect threats, prevent criminal networks, and protect lives.",
+          "deliverables": [
+            "Real-time threat pattern detection & threat mapping",
+            "Cross-jurisdictional open-source intelligence synthesis",
+            "Citizen cyber-safety mobile applications & reporting"
+          ],
+          "impact": "Awarded state-level recognition for counter-incident response and security"
+        },
+        {
+          "title": "Constitutional Digital Governance",
+          "category": "Digital Transformation",
+          "description": "Transparent, bias-controlled recruitment engines and administrative platforms built strictly within constitutional guardrails, ensuring equitable public employment.",
+          "deliverables": [
+            "Audited algorithmic fairness & merit scoring",
+            "Immutable verification trails for all decisions",
+            "Inter-departmental workflow orchestration"
+          ],
+          "impact": "First-of-its-kind state administration hiring engine with zero algorithmic bias"
+        },
+        {
+          "title": "Cloud & On-Premises Sovereign Solutions",
+          "category": "Cloud & Sovereign",
+          "description": "Architected for high-sovereignty environments. We deploy dual-architecture solutions spanning secure government clouds and air-gapped on-premises data enclaves.",
+          "deliverables": [
+            "Air-gapped on-premises high-assurance nodes",
+            "Zero-trust cryptographic data protection",
+            "Scalable hybrid cloud failover and resilience"
+          ],
+          "impact": "100% data sovereignty and national resilience standards adhered to"
+        },
+        {
+          "title": "Infrastructure Managed Services",
+          "category": "Managed Infrastructure",
+          "description": "Continuous 24/7 mission-critical operations, system health monitoring, rapid disaster recovery, and infrastructure modernization for public sector institutions.",
+          "deliverables": [
+            "24/7 emergency incident response & forensic triage",
+            "Continuous vulnerability patching & zero-day audits",
+            "Modernization roadmaps for legacy public systems"
+          ],
+          "impact": "99.99% uptime maintained during emergency state-level events"
+        }
+      ]
+    },
+    "capabilities": {
+      "title": "Full-spectrum engineering.",
+      "lede": "End-to-end architecture tailored for high-security public mandates.",
+      "items": [
+        {
+          "title": "Digital Transformation",
+          "description": "Modernizing citizen-facing public portals, workflow routing, and state administrative systems into resilient, auditable platforms."
+        },
+        {
+          "title": "Software Development",
+          "description": "High-assurance enterprise and public sector engineering built in modern frameworks with strict constitutional bias controls."
+        },
+        {
+          "title": "Mobile App Development",
+          "description": "Secure citizen utility and emergency alert applications (e.g. Maharashtra Cyber Safe app) supporting high-concurrency usage."
+        },
+        {
+          "title": "Cloud Solutions",
+          "description": "Government cloud migrations adhering to federal security baselines, data locality requirements, and zero-trust perimeter policies."
+        },
+        {
+          "title": "On-Premises Infrastructure",
+          "description": "Air-gapped compute clusters, classified data enclaves, and localized sovereign deployments for intelligence and defense agencies."
+        },
+        {
+          "title": "Managed Infrastructure Services",
+          "description": "24/7 proactive security monitoring, threat forensics, automated zero-day patching, and 99.99% mission-critical availability."
+        }
+      ]
+    },
+    "delivery": {
+      "title": "How we deliver.",
+      "lede": "Innovation, security and advanced technology combined into scalable systems that improve efficiency, strengthen operations and adapt as challenges evolve.",
+      "phaseLabel": "Phase {n} of {total}",
+      "phases": [
+        {
+          "name": "Discovery & Strategy",
+          "description": "We assess your business and governance goals, identify operational challenges, and create an unassailable technology roadmap rooted in constitutional law and system security.",
+          "points": [
+            "Institutional objective alignment & stakeholder scoping",
+            "Regulatory, cybersecurity & constitutional feasibility audit",
+            "Target architecture roadmap & milestone formulation"
+          ]
+        },
+        {
+          "name": "Development",
+          "description": "Our experts build secure, scalable, and high-performance solutions tailored to your operational realities, with rigorous automated testing and bias controls built into the core.",
+          "points": [
+            "High-assurance modular engineering in secure environments",
+            "Ethical AI bias audits, audit trails & zero-trust integration",
+            "Air-gapped and cloud hybrid deployment validation"
+          ]
+        },
+        {
+          "name": "Optimization & Support",
+          "description": "We provide continuous monitoring, maintenance, and system improvements to ensure long-term performance, mission-critical uptime, and institutional resilience.",
+          "points": [
+            "24/7 telemetry monitoring & rapid anomaly remediation",
+            "Policy-driven automated updates as legal standards evolve",
+            "Cross-departmental executive training & capability transfer"
+          ]
+        }
+      ]
+    },
+    "cta": {
+      "title": "Prepared to modernize public infrastructure or enterprise governance?",
+      "body": "Engage our multidisciplinary leadership for strategic intelligence and an engineering roadmap assessment.",
+      "button": "Start an advisory inquiry"
+    }
+  },
+
+  "expertisePage": {
+    "hero": {
+      "title": "Where law, technology and public policy meet.",
+      "lede": "The questions that matter rarely sit within one discipline. A technology decision is often a legal one; a policy choice can carry global consequences.",
+      "tags": ["Six practices", "One multidisciplinary team", "Government, enterprise & research"]
+    },
+    "practices": {
+      "title": "Six practices, read together.",
+      "lede": "Each engagement draws on several of them at once. Choose a practice to see how we work and what it changes for the institution.",
+      "practiceLabel": "Practice",
+      "methodologyLabel": "Methodology",
+      "benefitLabel": "What it changes",
+      "items": [
+        {
+          "title": "Strategic Intelligence & Research",
+          "summary": "Rigorous open-source research and analysis that turns scattered information into a clear picture of risks, actors and opportunities.",
+          "domains": ["Geopolitical Actor Mapping", "Supply Chain Vulnerability", "Foreign Tech Policy Intercepts", "OSINT Threat Radar"],
+          "methodology": "Triangulating technical signals, legal registry filings, academic literature, and multilateral records to eliminate intelligence blind spots.",
+          "clientBenefit": "Provides senior ministers and chief executives with defensible foresight prior to capital or legislative commitments."
+        },
+        {
+          "title": "AI Governance & Responsible Innovation",
+          "summary": "Policies, frameworks and oversight that let institutions adopt AI with accountability, legality and public trust built in.",
+          "domains": ["Algorithmic Audit Frameworks", "Constitutional Equality & Bias Guardrails", "Automated Decision Audit Trails", "Procurement Standards"],
+          "methodology": "Mathematical bias testing aligned with constitutional equal-protection doctrines and international AI safety treaties.",
+          "clientBenefit": "Enables government bodies to deploy automated ranking, hiring, and triage engines with zero risk of judicial invalidation."
+        },
+        {
+          "title": "Cyber & Digital-Law Advisory",
+          "summary": "Counsel where technology meets law: cybercrime and cyber resilience, data protection and emerging digital regulation.",
+          "domains": ["State-Level Incident Response", "Critical Infrastructure Resilience", "Cross-Border Data Treaties", "Digital Evidence Standards"],
+          "methodology": "Combining deep network packet forensics with criminal jurisprudence and statutory compliance mandates.",
+          "clientBenefit": "Award-winning coordination of 24-hour response to state-level security incidents recognized by GovTech awards."
+        },
+        {
+          "title": "Public-Sector Strategy",
+          "summary": "Helping government bodies define problems precisely and deliver technology-led programmes that work in practice.",
+          "domains": ["Inter-Agency Orchestration", "Civic Modernization Roadmaps", "Legacy System Sunset Protocols", "Public Performance Metrics"],
+          "methodology": "Translating political mandates into clear technical milestones, change-management strategies, and verified public outcomes.",
+          "clientBenefit": "Prevents multimillion-dollar budget overruns common in complex government IT transformations."
+        },
+        {
+          "title": "International Partnerships",
+          "summary": "Structuring collaboration between governments, institutions and research bodies across borders and sectors.",
+          "domains": ["Sub-National Bilateral Corridors", "Bilateral Technology Transfer", "Academic-State Innovation Hubs", "Multilateral Treaties"],
+          "methodology": "Architecting high-trust compacts that navigate disparate export controls, security clearances, and jurisdictional friction.",
+          "clientBenefit": "Directly shaped international investment missions, including the New Jersey–India Mission with Governor Phil Murphy."
+        },
+        {
+          "title": "Policy-Led Technology Transformation",
+          "summary": "Aligning technology adoption with policy objectives, so that systems serve their public purpose and stand up to scrutiny.",
+          "domains": ["Legislative Codification into Code", "Administrative Law Verification", "Transparency Portals", "Citizen Rights Auditing"],
+          "methodology": "Directly mapping statutory sections to software tests and immutable event streams before code reaches production.",
+          "clientBenefit": "Ensures that civic technology upholds democratic norms and stands up to judicial, legislative, and media scrutiny."
+        }
+      ]
+    },
+    "cta": {
+      "title": "A question that crosses law, technology and policy?",
+      "body": "Tell us what you are deciding. We will assemble the right combination of practices around it.",
+      "button": "Request a briefing"
+    }
+  },
+
+  "approachPage": {
+    "hero": {
+      "title": "Four commitments behind every engagement.",
+      "lede": "We approach important work with precision, discretion and seriousness. Our thinking extends beyond countries, sectors and conventional boundaries.",
+      "tags": ["Intelligence", "Advisory", "Global perspective", "Institutional credibility"]
+    },
+    "pillars": {
+      "title": "What we bring to the table.",
+      "lede": "The four qualities institutions engage us for, and how each shows up in the work.",
+      "items": [
+        {
+          "title": "Intelligence",
+          "text": "We understand complex information, technology, emerging risks and the world around us.",
+          "detail": "Direct synthesis of technical architectures with jurisdictional precedents."
+        },
+        {
+          "title": "Advisory",
+          "text": "We translate intelligence into decisions, policy, partnerships and strategic outcomes.",
+          "detail": "Executive and sovereign counsel that translates directly into operational capability."
+        },
+        {
+          "title": "Global perspective",
+          "text": "Our thinking extends beyond countries, sectors and conventional boundaries.",
+          "detail": "International bridges connecting US, Indian, European and emerging sovereign ecosystems."
+        },
+        {
+          "title": "Institutional credibility",
+          "text": "We approach important work with precision, discretion and seriousness.",
+          "detail": "Proven history of advising state governors, chief ministers, and public administrations."
+        }
+      ]
+    },
+    "standards": {
+      "title": "The standards we hold.",
+      "lede": "How OMAV Global accepts and executes mandates, enforced on every state and enterprise engagement.",
+      "items": [
+        {
+          "title": "Discretion & sovereign privilege",
+          "description": "We operate under strict confidentiality protocols. Our engagements with state departments and intelligence leadership prioritize classified handling and institutional protection."
+        },
+        {
+          "title": "Multidisciplinary composition",
+          "description": "No technology decision is made without statutory counsel, and no policy is drafted without software validation. Engineers, legal scholars, and public strategists sit at the same table."
+        },
+        {
+          "title": "Objective integrity & constitutional compliance",
+          "description": "We do not sell vendor hype or speculative algorithms. Every system recommended is benchmarked against constitutional rights, public auditability, and legal precedent."
+        },
+        {
+          "title": "Sub-national to multilateral reach",
+          "description": "Our work bridges municipal bodies, state administrations, national agencies, and bilateral state missions across the United States, India, and partner democracies."
+        }
+      ]
+    },
+    "cta": {
+      "title": "Structuring an institutional mandate or public advisory programme?",
+      "body": "Our partners engage directly with departmental heads, legislative leaders and corporate boards to align technical roadmaps with sovereign priorities.",
+      "button": "Request a consultation"
+    }
+  },
+
+  "aboutPage": {
+    "hero": {
+      "title": "Advice for institutions working where technology, law and public purpose meet.",
+      "lede": "OMAV Global Ventures Pvt. Ltd. is a multidisciplinary advisory practice. We bring legal rigour, technological fluency and an international outlook to the questions government bodies, enterprises and research institutions find hardest to answer.",
+      "mottoTitle": "For the sake of rights",
+      "mottoBody": "The principle at the centre of our mark and the benchmark for every system we construct."
+    },
+    "founders": {
+      "title": "The founders.",
+      "lede": "Priya Lalwani and Varad Ozarkar co-founded OMAV Global Ventures Pvt. Ltd. to bring strategy, technology and governance to the institutions shaping what comes next.",
+      "roleLabel": "Co-founder",
+      "people": [
+        {
+          "name": "Priya Lalwani",
+          "focus": "Strategy · Public-sector transformation · Operations",
+          "bio": [
+            "Priya Lalwani is a co-founder of OMAV Global Ventures Pvt. Ltd., where she leads the firm’s strategy, operations and public-sector transformation work. She holds an MBA in Corporate Strategy and Operations from Columbia Business School.",
+            "Priya has led multi-million-dollar modernisation programmes for US state governments, directing cross-functional teams of more than sixty professionals across two continents. Her coordination of a twenty-four-hour response to a state-level security incident was recognised with the GovTech Innovation Award.",
+            "Previously, as Chief Strategy Officer and a founding executive of an education venture serving Europe, the Middle East, Africa and the United States, she more than doubled revenue and introduced AI-enabled analytics and matching that improved student retention by a quarter. At Columbia, she served as Vice President of the South Asian Business Association."
+          ]
+        },
+        {
+          "name": "Varad Ozarkar",
+          "focus": "AI governance · Cyber policy · International strategy",
+          "bio": [
+            "Varad Ozarkar is a co-founder of OMAV Global Ventures Pvt. Ltd., where he leads the firm’s work on AI governance and international strategy. His platforms are in use across the Maharashtra state administration.",
+            "Varad conceived and deployed Maharashtra’s first AI-based public-sector recruitment system, designed for transparency and constitutional bias controls, and built the state’s cyber-safety platforms, including an AI-powered cyber-crime call agent and the Maharashtra Cyber Safe app. The work was felicitated by the Hon’ble Chief Minister of Maharashtra and honoured at the Bombay Stock Exchange during DSCI and NASSCOM’s “Ring the Bell for Security & Privacy.”",
+            "He advises state law-enforcement leadership on AI and cyber strategy, and helped shape the New Jersey–India Mission on Investment and Strategy with the office of Governor Phil Murphy. He was invited to the Harvard India Conference in 2025."
+          ]
+        }
+      ]
+    },
+    "recognition": {
+      "title": "Recognition and public impact.",
+      "lede": "Demonstrated execution across state administrations and global forums.",
+      "cardLabel": "Recognition",
+      "milestones": [
+        {
+          "year": "2025",
+          "title": "Harvard India Conference invitation",
+          "detail": "Co-founder Varad Ozarkar invited to address international leadership on public sector AI recruitment and constitutional bias safeguards."
+        },
+        {
+          "year": "2024",
+          "title": "State AI recruitment & Cyber Safe platforms",
+          "detail": "Conceived and deployed Maharashtra state administration’s first AI recruitment engine and citizen cyber-crime call agent; felicitated by the Hon’ble Chief Minister."
+        },
+        {
+          "year": "2023",
+          "title": "DSCI & NASSCOM BSE honoree",
+          "detail": "Honoured at the Bombay Stock Exchange during \"Ring the Bell for Security & Privacy\" for state-level cyber-defense engineering."
+        },
+        {
+          "year": "2022",
+          "title": "GovTech Innovation Award",
+          "detail": "Priya Lalwani led a 24-hour rapid security incident response and multimillion-dollar public IT modernization recognized with the GovTech Innovation Award."
+        },
+        {
+          "year": "2021",
+          "title": "New Jersey–India Mission on Investment",
+          "detail": "Shaped high-level bilateral technology and investment mission with the office of Governor Phil Murphy."
+        }
+      ]
+    },
+    "cta": {
+      "title": "Grounded in legal precision and democratic accountability.",
+      "body": "Whether structuring constitutional AI, state cyber-safety networks or international technology transfer, speak directly with our partners.",
+      "button": "Connect with our partners"
+    }
+  },
+
+  "briefingForm": {
+    "header": {
+      "eyebrow": "OMAV GLOBAL ADVISORY",
+      "title": "Request an Institutional Briefing",
+      "intro": "We consult with government bodies, state administrations, security leadership, and enterprises navigating technology, law, and sovereignty."
+    },
+    "fields": {
+      "nameLabel": "Full Name *",
+      "namePlaceholder": "e.g. Priya Sharma",
+      "institutionLabel": "Institution / Body",
+      "institutionPlaceholder": "e.g. State Department / Agency",
+      "emailLabel": "Official Email Address *",
+      "emailPlaceholder": "name@agency.gov / name@institution.org",
+      "mandateLabel": "Focus Mandate / System Domain",
+      "mandates": [
+        "AI Governance & Constitutional Bias Controls",
+        "AI Voice Bots & Grievance Dispatch",
+        "Contract Intelligence & Legal Technology",
+        "Cyber Intelligence & Predictive Policing",
+        "Public Sector Digital Transformation & Architecture",
+        "Cloud & Sovereign On-Premises Infrastructure",
+        "International State-Level Partnerships & Missions"
+      ],
+      "messageLabel": "Enquiry Scope",
+      "messagePlaceholder": "Summarize the operational context, legislative timeframe, or technology challenge..."
+    },
+    "actions": {
+      "privacyNote": "Confidential & Sovereign Privilege",
+      "cancel": "Cancel",
+      "submit": "Transmit Inquiry",
+      "sending": "Transmitting…",
+      "error": "We couldn’t send your enquiry just now. Please try again, or email contact@omavglobal.com."
+    },
+    "success": {
+      "title": "Inquiry Dispatched",
+      "body": "Thank you, {name}. Your inquiry regarding {mandate} has been logged with the OMAV Global executive advisory team. We will review and respond confidentially within 24 hours.",
+      "button": "Return to Site"
+    }
+  }
+}

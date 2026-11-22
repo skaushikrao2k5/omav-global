@@ -196,6 +196,7 @@ export default function App() {
         isOpen={briefingModalOpen}
         onClose={handleCloseBriefing}
         accentColor={accentColor}
+        page={currentPage}
       />
     </div>
   );

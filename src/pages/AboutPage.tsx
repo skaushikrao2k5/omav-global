@@ -2,78 +2,28 @@ import React from 'react';
 import { Card, CtaBand, Mono, PageBackdrop, PageHero, Section } from '../components/page/PageParts';
 import Galaxy from '../components/ui/Galaxy';
 import CardSwap, { Card as SwapCard, type CardSwapHandle } from '../components/ui/CardSwap';
+import { useContent, type SiteContent } from '../content/content';
 
 interface AboutPageProps {
   accentColor?: string;
   onRequestBriefing: () => void;
 }
 
-export const FOUNDERS = [
-  {
-    name: 'Priya Lalwani',
-    focus: 'Strategy · Public-sector transformation · Operations',
-    bio: [
-      'Priya Lalwani is a co-founder of OMAV Global Ventures Pvt. Ltd., where she leads the firm’s strategy, operations and public-sector transformation work. She holds an MBA in Corporate Strategy and Operations from Columbia Business School.',
-      'Priya has led multi-million-dollar modernisation programmes for US state governments, directing cross-functional teams of more than sixty professionals across two continents. Her coordination of a twenty-four-hour response to a state-level security incident was recognised with the GovTech Innovation Award.',
-      'Previously, as Chief Strategy Officer and a founding executive of an education venture serving Europe, the Middle East, Africa and the United States, she more than doubled revenue and introduced AI-enabled analytics and matching that improved student retention by a quarter. At Columbia, she served as Vice President of the South Asian Business Association.',
-    ],
-  },
-  {
-    name: 'Varad Ozarkar',
-    focus: 'AI governance · Cyber policy · International strategy',
-    bio: [
-      'Varad Ozarkar is a co-founder of OMAV Global Ventures Pvt. Ltd., where he leads the firm’s work on AI governance and international strategy. His platforms are in use across the Maharashtra state administration.',
-      'Varad conceived and deployed Maharashtra’s first AI-based public-sector recruitment system, designed for transparency and constitutional bias controls, and built the state’s cyber-safety platforms, including an AI-powered cyber-crime call agent and the Maharashtra Cyber Safe app. The work was felicitated by the Hon’ble Chief Minister of Maharashtra and honoured at the Bombay Stock Exchange during DSCI and NASSCOM’s “Ring the Bell for Security & Privacy.”',
-      'He advises state law-enforcement leadership on AI and cyber strategy, and helped shape the New Jersey–India Mission on Investment and Strategy with the office of Governor Phil Murphy. He was invited to the Harvard India Conference in 2025.',
-    ],
-  },
-];
-
-export const MILESTONES = [
-  {
-    year: '2025',
-    title: 'Harvard India Conference invitation',
-    detail:
-      'Co-founder Varad Ozarkar invited to address international leadership on public sector AI recruitment and constitutional bias safeguards.',
-  },
-  {
-    year: '2024',
-    title: 'State AI recruitment & Cyber Safe platforms',
-    detail:
-      'Conceived and deployed Maharashtra state administration’s first AI recruitment engine and citizen cyber-crime call agent; felicitated by the Hon’ble Chief Minister.',
-  },
-  {
-    year: '2023',
-    title: 'DSCI & NASSCOM BSE honoree',
-    detail:
-      'Honoured at the Bombay Stock Exchange during "Ring the Bell for Security & Privacy" for state-level cyber-defense engineering.',
-  },
-  {
-    year: '2022',
-    title: 'GovTech Innovation Award',
-    detail:
-      'Priya Lalwani led a 24-hour rapid security incident response and multimillion-dollar public IT modernization recognized with the GovTech Innovation Award.',
-  },
-  {
-    year: '2021',
-    title: 'New Jersey–India Mission on Investment',
-    detail: 'Shaped high-level bilateral technology and investment mission with the office of Governor Phil Murphy.',
-  },
-];
-
-type Founder = (typeof FOUNDERS)[number];
+type About = SiteContent['aboutPage'];
+type Founder = About['founders']['people'][number];
 const initials = (name: string) =>
   name
     .split(' ')
+    .filter(Boolean)
     .map((w) => w[0])
     .join('');
 
-const FounderCard: React.FC<{ f: Founder; className?: string }> = ({ f, className = '' }) => (
+const FounderCard: React.FC<{ f: Founder; role: string; className?: string }> = ({ f, role, className = '' }) => (
   <Card as="article" className={`!p-8 sm:!p-10 h-full ${className}`}>
     <div className="flex items-start justify-between gap-4">
       <div>
         <h3 className="font-display text-[26px] sm:text-[30px] leading-tight text-ice">{f.name}</h3>
-        <Mono className="mt-2">Co-founder</Mono>
+        <Mono className="mt-2">{role}</Mono>
       </div>
       <span
         aria-hidden="true"
@@ -84,8 +34,8 @@ const FounderCard: React.FC<{ f: Founder; className?: string }> = ({ f, classNam
     </div>
     <div className="mt-6 pb-6 border-b border-hairline font-mono text-[11.5px] text-signal">{f.focus}</div>
     <div className="mt-6 space-y-4 text-[15.5px] leading-[1.7] text-ice/72">
-      {f.bio.map((para) => (
-        <p key={para.slice(0, 24)}>{para}</p>
+      {f.bio.map((para, i) => (
+        <p key={i}>{para}</p>
       ))}
     </div>
   </Card>
@@ -93,7 +43,7 @@ const FounderCard: React.FC<{ f: Founder; className?: string }> = ({ f, classNam
 
 // Side by side on wide screens. On phones the two founders share one row of
 // equal tabs and one swipeable track, so neither sits above the other.
-const Founders: React.FC = () => {
+const Founders: React.FC<{ people: Founder[]; role: string }> = ({ people: FOUNDERS, role }) => {
   const trackRef = React.useRef<HTMLDivElement | null>(null);
   const [current, setCurrent] = React.useState(0);
 
@@ -114,7 +64,7 @@ const Founders: React.FC = () => {
     <>
       <div className="hidden lg:grid lg:grid-cols-2 gap-5">
         {FOUNDERS.map((f) => (
-          <FounderCard key={f.name} f={f} />
+          <FounderCard key={f.name} f={f} role={role} />
         ))}
       </div>
 
@@ -150,7 +100,7 @@ const Founders: React.FC = () => {
         >
           {FOUNDERS.map((f) => (
             <div key={f.name} className="snap-start shrink-0 w-[88%] sm:w-[80%]">
-              <FounderCard f={f} />
+              <FounderCard f={f} role={role} />
             </div>
           ))}
         </div>
@@ -161,7 +111,7 @@ const Founders: React.FC = () => {
 
 // Recognition as a stack of cards, one per milestone, with the years beside it
 // as an index that follows the front card and jumps to any other
-const Milestones: React.FC = () => {
+const Milestones: React.FC<{ items: About['recognition']['milestones']; cardLabel: string }> = ({ items: MILESTONES, cardLabel }) => {
   const swapRef = React.useRef<CardSwapHandle | null>(null);
   const [front, setFront] = React.useState(0);
 
@@ -169,7 +119,7 @@ const Milestones: React.FC = () => {
     <div className="grid lg:grid-cols-[minmax(0,4fr)_minmax(0,7fr)] gap-10 lg:gap-16 items-center">
       <ol className="order-2 lg:order-1 grid gap-1">
         {MILESTONES.map((m, i) => (
-          <li key={m.year}>
+          <li key={`${i}-${m.year}`}>
             <button
               type="button"
               onClick={() => swapRef.current?.goTo(i)}
@@ -218,13 +168,13 @@ const Milestones: React.FC = () => {
           ariaLabel="Recognition and public impact"
         >
           {MILESTONES.map((m, i) => (
-            <SwapCard key={m.year}>
+            <SwapCard key={`${i}-${m.year}`}>
               <article className="flex h-full flex-col p-7 sm:p-8">
                 <div className="flex items-center justify-between font-mono text-[11.5px] text-slate">
                   <span>
-                    <span className="text-signal">0{i + 1}</span> / 0{MILESTONES.length}
+                    <span className="text-signal">{String(i + 1).padStart(2, '0')}</span> / {String(MILESTONES.length).padStart(2, '0')}
                   </span>
-                  <span>Recognition</span>
+                  <span>{cardLabel}</span>
                 </div>
                 <div className="mt-4 font-display text-[40px] leading-none text-signal">{m.year}</div>
                 <h3 className="mt-3 font-display text-[20px] leading-[1.25] text-ice">{m.title}</h3>
@@ -238,7 +188,9 @@ const Milestones: React.FC = () => {
   );
 };
 
-export const AboutPage: React.FC<AboutPageProps> = ({ onRequestBriefing }) => (
+export const AboutPage: React.FC<AboutPageProps> = ({ onRequestBriefing }) => {
+  const c = useContent().aboutPage;
+  return (
   <div className="relative text-ice">
       <PageBackdrop>
         <Galaxy
@@ -267,8 +219,8 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onRequestBriefing }) => (
 <div className="relative z-[1]">
     <PageHero
       tunnel={false}
-      title="Advice for institutions working where technology, law and public purpose meet."
-      lede="OMAV Global Ventures Pvt. Ltd. is a multidisciplinary advisory practice. We bring legal rigour, technological fluency and an international outlook to the questions government bodies, enterprises and research institutions find hardest to answer."
+      title={c.hero.title}
+      lede={c.hero.lede}
       aside={
         <figure className="flex flex-col items-center text-center">
           {/* The dark logo as supplied: transparent, directly on the galaxy */}
@@ -280,36 +232,29 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onRequestBriefing }) => (
             className="w-[min(300px,72vw)] h-auto"
           />
           <figcaption className="mt-8">
-            <Mono className="text-signal">For the sake of rights</Mono>
+            <Mono className="text-signal">{c.hero.mottoTitle}</Mono>
             <p className="mt-3 max-w-[340px] text-[15px] leading-[1.6] text-ice/75 [text-shadow:0_2px_18px_rgb(5_7_11/0.9)]">
-              The principle at the centre of our mark and the benchmark for every system we construct.
+              {c.hero.mottoBody}
             </p>
           </figcaption>
         </figure>
       }
     />
 
-    <Section
-      id="founders"
-      title="The founders."
-      lede="Priya Lalwani and Varad Ozarkar co-founded OMAV Global Ventures Pvt. Ltd. to bring strategy, technology and governance to the institutions shaping what comes next."
-    >
-      <Founders />
+    <Section id="founders" title={c.founders.title} lede={c.founders.lede}>
+      <Founders people={c.founders.people} role={c.founders.roleLabel} />
     </Section>
-    <Section
-      id="recognition"
-      title="Recognition and public impact."
-      lede="Demonstrated execution across state administrations and global forums."
-    >
-      <Milestones />
+    <Section id="recognition" title={c.recognition.title} lede={c.recognition.lede}>
+      <Milestones items={c.recognition.milestones} cardLabel={c.recognition.cardLabel} />
     </Section>
 
     <CtaBand
-      title="Grounded in legal precision and democratic accountability."
-      body="Whether structuring constitutional AI, state cyber-safety networks or international technology transfer, speak directly with our partners."
-      action="Connect with our partners"
+      title={c.cta.title}
+      body={c.cta.body}
+      action={c.cta.button}
       onAction={onRequestBriefing}
     />
   </div>
 </div>
-);
+  );
+};
