@@ -1,0 +1,817 @@
+@import "tailwindcss";
+
+/* OMAV design tokens. Palette: Abyss (ground), Graphite (raised surface), Ice
+   (ink), Slate (secondary ink), Signal (brand accent), Ember (data, city light).
+   Type: Ranade (Indian Type Foundry) throughout; JetBrains Mono for data and labels. */
+@theme {
+  --font-sans: 'Ranade', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-display: 'Ranade', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+
+  --color-abyss: #05070b;
+  --color-graphite: #0b1018;
+  --color-ice: #e9edf3;
+  --color-slate: #8c96a6;
+  --color-signal: #8cc8d8;
+  --color-ember: #f0c88c;
+  --color-hairline: rgb(220 228 238 / 0.12);
+
+  --radius-ctl: 10px;
+  --ease-out-quint: cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+:root {
+  --tick: rgb(140 200 216 / 0.75);
+  --dur-ui: 180ms;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    color-scheme: dark;
+  }
+  body {
+    margin: 0;
+    background: var(--color-abyss);
+    color: var(--color-ice);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: clip;
+  }
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    letter-spacing: -0.015em;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-signal);
+    outline-offset: 3px;
+  }
+}
+
+/* Display: Ranade, medium weight */
+.font-display {
+  font-family: var(--font-display);
+}
+/* Wordmark: Ranade, tracked out */
+.font-jost {
+  font-family: var(--font-display);
+  font-weight: 500;
+}
+
+/* Components sit in Tailwind's components layer so utilities can override them */
+@layer components {
+/* Buttons: a solid primary with an arrow cell, and a hairline secondary */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  height: 46px;
+  padding: 0 18px;
+  border-radius: var(--radius-ctl);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.005em;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color var(--dur-ui) var(--ease-out-quint),
+    box-shadow var(--dur-ui) var(--ease-out-quint),
+    color var(--dur-ui) var(--ease-out-quint),
+    transform 160ms var(--ease-out-quint);
+}
+.btn:active {
+  transform: scale(0.98);
+}
+.btn-primary {
+  padding: 0 6px 0 18px;
+  background: var(--color-ice);
+  color: var(--color-abyss);
+}
+.btn-primary:hover {
+  background: #fff;
+}
+.btn-icon {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 7px;
+  background: var(--color-abyss);
+  color: var(--color-ice);
+  transition: transform var(--dur-ui) var(--ease-out-quint);
+}
+.btn:hover .btn-icon {
+  transform: translateX(2px);
+}
+.btn-ghost {
+  background: rgb(233 237 243 / 0.04);
+  color: var(--color-ice);
+  box-shadow: inset 0 0 0 1px rgb(233 237 243 / 0.16);
+}
+.btn-ghost:hover {
+  background: rgb(233 237 243 / 0.07);
+  box-shadow: inset 0 0 0 1px rgb(233 237 243 / 0.42);
+}
+.btn-sm {
+  height: 38px;
+  font-size: 13px;
+}
+.btn-sm.btn-primary {
+  padding: 0 4px 0 14px;
+}
+.btn-sm .btn-icon {
+  width: 30px;
+  height: 30px;
+}
+
+/* Signature: instrument reticle ticks at the corners of a block */
+.reticle {
+  position: relative;
+}
+.reticle::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(var(--tick) 0 0) top left / 10px 1px no-repeat,
+    linear-gradient(var(--tick) 0 0) top left / 1px 10px no-repeat,
+    linear-gradient(var(--tick) 0 0) top right / 10px 1px no-repeat,
+    linear-gradient(var(--tick) 0 0) top right / 1px 10px no-repeat,
+    linear-gradient(var(--tick) 0 0) bottom left / 10px 1px no-repeat,
+    linear-gradient(var(--tick) 0 0) bottom left / 1px 10px no-repeat,
+    linear-gradient(var(--tick) 0 0) bottom right / 10px 1px no-repeat,
+    linear-gradient(var(--tick) 0 0) bottom right / 1px 10px no-repeat;
+}
+
+/* Glass surface for floating controls */
+.surface {
+  background: rgb(8 11 17 / 0.72);
+  box-shadow:
+    inset 0 0 0 1px rgb(220 228 238 / 0.1),
+    0 18px 40px -18px rgb(0 0 0 / 0.8);
+  -webkit-backdrop-filter: blur(14px) saturate(1.2);
+  backdrop-filter: blur(14px) saturate(1.2);
+}
+
+.font-sanskrit {
+  font-family: 'Tiro Devanagari Sanskrit', 'Noto Serif Devanagari', Georgia, serif;
+}
+
+/* Logo intro: page chrome stays hidden until the Earth takes over (.omav-go),
+   then rises in on a staggered delay */
+@keyframes omavRise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+    filter: blur(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+html.omav-intro-lock {
+  overflow: hidden;
+}
+html.omav-intro [data-intro-reveal] {
+  opacity: 0;
+}
+html.omav-intro.omav-go [data-intro-reveal] {
+  animation: omavRise 1.6s cubic-bezier(0.16, 0.8, 0.2, 1) var(--intro-delay, 0s) forwards;
+}
+html.omav-intro .omav-scrim {
+  transition: opacity 1.6s ease 0.2s;
+}
+html.omav-intro:not(.omav-go) .omav-scrim {
+  opacity: 0;
+}
+html.omav-intro #how,
+html.omav-intro main section:not(#top),
+html.omav-intro footer {
+  transition: opacity 1.2s ease 0.6s;
+}
+html.omav-intro:not(.omav-go) #how,
+html.omav-intro:not(.omav-go) main section:not(#top),
+html.omav-intro:not(.omav-go) footer {
+  opacity: 0;
+}
+@media (prefers-reduced-motion: reduce) {
+  html.omav-intro [data-intro-reveal] {
+    animation: none;
+    opacity: 1;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #05070B;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(220, 228, 238, 0.18);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(220, 228, 238, 0.35);
+}
+
+/* Custom Animations */
+@keyframes omavCue {
+  0% {
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+  45% {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+  55% {
+    transform: scaleX(1);
+    transform-origin: right;
+  }
+  100% {
+    transform: scaleX(0);
+    transform-origin: right;
+  }
+}
+
+.animate-omav-cue {
+  animation: omavCue 2.8s ease-in-out infinite;
+}
+
+@keyframes pulseSlow {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.05);
+  }
+}
+
+.animate-pulse-slow {
+  animation: pulseSlow 4s ease-in-out infinite;
+}
+
+/* Hero globe (CesiumJS): explore mode clears the hero copy and holds the page */
+.omav-hero-copy,
+.omav-scrim {
+  transition: opacity 0.6s ease;
+}
+html.omav-exploring {
+  overflow: hidden;
+}
+html.omav-exploring .omav-hero-copy,
+html.omav-exploring .omav-scrim {
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+html.omav-exploring header {
+  opacity: 0.35;
+  transition: opacity 0.6s ease;
+}
+html.omav-exploring header:hover {
+  opacity: 1;
+}
+
+/* Gesture control: the hero copy clears off the centred globe */
+.omav-hero-copy {
+  transition:
+    opacity 0.8s ease,
+    transform 1.4s var(--ease-out-quint);
+}
+html.omav-gesture .omav-hero-copy {
+  opacity: 0 !important;
+  transform: translateX(max(-40px, -3vw));
+  pointer-events: none !important;
+}
+.omav-gesture-btn {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-ctl);
+  color: var(--color-ice);
+  background: rgb(11 16 24 / 0.72);
+  box-shadow: inset 0 0 0 1px rgb(233 237 243 / 0.16);
+  backdrop-filter: blur(12px);
+  cursor: pointer;
+  transition:
+    background-color var(--dur-ui) var(--ease-out-quint),
+    box-shadow var(--dur-ui) var(--ease-out-quint),
+    color var(--dur-ui) var(--ease-out-quint),
+    transform 160ms var(--ease-out-quint);
+}
+.omav-gesture-btn:hover {
+  box-shadow: inset 0 0 0 1px rgb(233 237 243 / 0.42);
+}
+.omav-gesture-btn:active {
+  transform: scale(0.95);
+}
+.omav-gesture-btn.is-on {
+  color: var(--color-abyss);
+  background: var(--color-signal);
+  box-shadow: none;
+}
+.omav-gesture-dot {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--color-abyss);
+  animation: omavGestureBlink 1.6s ease-in-out infinite;
+}
+@keyframes omavGestureBlink {
+  50% {
+    opacity: 0.25;
+  }
+}
+.omav-gesture-panel {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 60;
+  width: 232px;
+  border-radius: 12px;
+  background: rgb(11 16 24 / 0.86);
+  box-shadow:
+    inset 0 0 0 1px rgb(220 228 238 / 0.12),
+    0 18px 40px -12px rgb(0 0 0 / 0.6);
+  backdrop-filter: blur(14px);
+  animation: omavGestureIn 0.5s var(--ease-out-quint) both;
+}
+@keyframes omavGestureIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+}
+/* Collapsing body: the camera keeps running while it is folded away */
+.omav-gesture-body {
+  display: grid;
+  grid-template-rows: 1fr;
+  transition: grid-template-rows 0.45s var(--ease-out-quint);
+}
+.omav-gesture-panel.is-min .omav-gesture-body {
+  grid-template-rows: 0fr;
+}
+.omav-gesture-body > div {
+  min-height: 0;
+  overflow: hidden;
+}
+.omav-gesture-panel.is-min {
+  width: auto;
+  max-width: 280px;
+}
+.omav-gesture-x {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  color: var(--color-slate);
+  cursor: pointer;
+}
+.omav-gesture-x:hover {
+  color: var(--color-ice);
+  background: rgb(233 237 243 / 0.07);
+}
+@media (prefers-reduced-motion: reduce) {
+  .omav-gesture-dot,
+  .omav-gesture-panel {
+    animation: none;
+  }
+}
+
+/* Imagery and data credits, required by the providers: small and quiet */
+.omav-cesium-credits {
+  font-size: 10px;
+  line-height: 1.4;
+  color: rgba(174, 183, 195, 0.6);
+  white-space: nowrap;
+}
+.omav-cesium-credits .cesium-credit-textContainer,
+.omav-cesium-credits .cesium-credit-logoContainer {
+  display: inline;
+}
+.omav-cesium-credits a {
+  color: inherit;
+}
+.omav-cesium-credits img {
+  height: 14px;
+  vertical-align: middle;
+  opacity: 0.7;
+}
+.omav-cesium .cesium-viewer-bottom {
+  display: none;
+}
+}
+
+/* Popovers answer the click that opened them: a short scale-and-fade */
+@keyframes omavPop {
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.98);
+  }
+}
+.omav-pop {
+  animation: omavPop 200ms var(--ease-out-quint);
+}
+@media (prefers-reduced-motion: reduce) {
+  .omav-pop {
+    animation: none;
+  }
+}
+
+/* Spotlight cards in the OMAV system: tighter radius and padding than the default */
+.spotlight-card.omav-card {
+  padding: 28px;
+  border-radius: 16px;
+}
+@media (min-width: 640px) {
+  .spotlight-card.omav-card {
+    padding: 32px;
+  }
+}
+
+/* Registered so the cursor light fades in and out rather than snapping */
+@property --glow {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0;
+}
+
+/* Glass panel for the story scenes' text: frosted, lit along its top edge,
+   with a soft sheen, so the globe and its overlays read through it */
+.omav-glass {
+  --mx: 50%;
+  --my: 0%;
+  --glow: 0;
+  position: relative;
+  isolation: isolate;
+  transition: --glow 0.45s var(--ease-out-quint);
+  padding: clamp(22px, 2.6vw, 36px);
+  border-radius: 24px;
+  background:
+    linear-gradient(155deg, rgb(255 255 255 / 0.085) 0%, rgb(255 255 255 / 0.02) 42%, rgb(255 255 255 / 0.045) 100%),
+    rgb(9 13 20 / 0.34);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.22),
+    inset 0 -1px 0 rgb(255 255 255 / 0.05),
+    inset 0 0 0 1px rgb(255 255 255 / 0.09),
+    0 24px 60px -24px rgb(0 0 0 / 0.65);
+  -webkit-backdrop-filter: blur(12px) saturate(1.5);
+  backdrop-filter: blur(12px) saturate(1.5);
+}
+/* Specular rim: brighter at the top-left, fading round the edge */
+.omav-glass::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  padding: 1px;
+  background:
+    radial-gradient(260px circle at var(--mx) var(--my), rgb(255 255 255 / calc(1 * var(--glow))), rgb(140 200 216 / calc(0.5 * var(--glow))) 35%, transparent 70%),
+    linear-gradient(140deg, rgb(255 255 255 / 0.45), rgb(255 255 255 / 0.04) 38%, rgb(255 255 255 / 0) 60%, rgb(140 200 216 / 0.22));
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+/* Cursor light: a soft pool inside the glass, following the pointer; the
+   rim above brightens where the light meets it */
+.omav-glass::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background:
+    radial-gradient(340px circle at var(--mx) var(--my), rgb(255 255 255 / 0.17), rgb(140 200 216 / 0.07) 42%, transparent 72%);
+  opacity: var(--glow);
+  pointer-events: none;
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .omav-glass {
+    background: rgb(11 16 24 / 0.86);
+  }
+}
+
+.omav-bullet {
+  flex: none;
+  width: 6px;
+  height: 6px;
+  margin-top: calc(0.75em - 3px);
+  border-radius: 999px;
+  background: var(--color-signal);
+  box-shadow: 0 0 0 3px rgb(140 200 216 / 0.12);
+}
+
+/* Founders track on phones: swipe between the two, no scrollbar */
+.omav-founders {
+  scrollbar-width: none;
+  overscroll-behavior-x: contain;
+}
+.omav-founders::-webkit-scrollbar {
+  display: none;
+}
+
+/* Text standing in the Approach page's light rays: a faint glow from above,
+   and a dark halo that keeps it legible where the rays are brightest */
+.omav-lit h3 {
+  text-shadow:
+    0 -1px 18px rgb(255 255 255 / 0.18),
+    0 2px 24px rgb(5 7 11 / 0.85);
+}
+.omav-lit p {
+  text-shadow: 0 1px 16px rgb(5 7 11 / 0.9);
+}
+
+
+/* Site assistant: a floating launcher drawn from the emblem, and its panel.
+   Above the gesture panel (60), below the briefing form (70). */
+.omav-chat {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 65;
+  transition: right 0.5s var(--ease-out-quint);
+}
+/* The gesture panel takes this corner while it is on: stand beside it */
+html.omav-gesture .omav-chat {
+  right: 268px;
+}
+.omav-chat-launcher {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 58px;
+  height: 58px;
+  /* A speech bubble: round, with one tighter corner */
+  border-radius: 50% 50% 9px 50%;
+  background: radial-gradient(circle at 35% 25%, #1b2431 0%, #0b1018 70%);
+  box-shadow:
+    inset 0 0 0 1px rgb(220 228 238 / 0.2),
+    inset 0 1px 0 rgb(255 255 255 / 0.14),
+    0 14px 34px -10px rgb(0 0 0 / 0.8),
+    0 0 26px -6px rgb(128 144 240 / 0.45);
+  cursor: pointer;
+  transition:
+    transform 240ms var(--ease-out-quint),
+    box-shadow var(--dur-ui) var(--ease-out-quint);
+}
+.omav-chat-launcher[hidden] {
+  display: none;
+}
+.omav-chat-launcher:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    inset 0 0 0 1px rgb(220 228 238 / 0.4),
+    inset 0 1px 0 rgb(255 255 255 / 0.18),
+    0 18px 38px -10px rgb(0 0 0 / 0.85),
+    0 0 32px -4px rgb(128 144 240 / 0.65);
+}
+.omav-chat-launcher:active {
+  transform: scale(0.96);
+}
+.omav-chat-tip {
+  position: absolute;
+  right: calc(100% + 10px);
+  top: 50%;
+  padding: 6px 10px;
+  border-radius: 8px;
+  background: rgb(11 16 24 / 0.94);
+  box-shadow: inset 0 0 0 1px rgb(220 228 238 / 0.14);
+  color: var(--color-ice);
+  font-size: 12.5px;
+  line-height: 1;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translate(6px, -50%);
+  pointer-events: none;
+  transition:
+    opacity var(--dur-ui) ease,
+    transform var(--dur-ui) var(--ease-out-quint);
+}
+.omav-chat-launcher:hover .omav-chat-tip,
+.omav-chat-launcher:focus-visible .omav-chat-tip {
+  opacity: 1;
+  transform: translate(0, -50%);
+}
+/* The emblem's blue centre is the character's eye */
+.omav-bot-mark {
+  display: block;
+  flex: none;
+  overflow: visible;
+}
+.omav-bot-eye {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: omavBotBlink 6s ease-in-out infinite;
+}
+.omav-bot-mark.is-thinking .omav-bot-eye {
+  animation: omavBotThink 0.8s ease-in-out infinite;
+}
+@keyframes omavBotBlink {
+  0%,
+  93%,
+  100% {
+    transform: scaleY(1);
+  }
+  96.5% {
+    transform: scaleY(0.12);
+  }
+}
+@keyframes omavBotThink {
+  50% {
+    transform: scale(0.72);
+    filter: brightness(1.5);
+  }
+}
+.omav-chat-panel {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  width: 384px;
+  height: min(600px, calc(100dvh - 116px));
+  border-radius: 18px;
+  /* Solid rather than blurred: a backdrop blur here would re-blur the moving
+     globe behind it every frame */
+  background: linear-gradient(170deg, #121923 0%, #0b1018 45%);
+  box-shadow:
+    inset 0 0 0 1px rgb(220 228 238 / 0.14),
+    inset 0 1px 0 rgb(255 255 255 / 0.1),
+    0 34px 70px -22px rgb(0 0 0 / 0.9);
+  outline: none;
+  animation: omavChatIn 0.32s var(--ease-out-quint) both;
+  transform-origin: bottom right;
+}
+.omav-chat-panel[hidden] {
+  display: none;
+}
+@keyframes omavChatIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.97);
+  }
+}
+.omav-chat-scroll {
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: rgb(233 237 243 / 0.18) transparent;
+}
+.omav-chat-icon {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  flex: none;
+  border-radius: 9px;
+  color: var(--color-slate);
+  cursor: pointer;
+}
+.omav-chat-icon:hover {
+  color: var(--color-ice);
+  background: rgb(233 237 243 / 0.07);
+}
+.omav-chat-bot {
+  margin-bottom: 12px;
+  padding: 12px 13px;
+  border-radius: 14px 14px 14px 5px;
+  background: rgb(233 237 243 / 0.045);
+  box-shadow: inset 0 0 0 1px rgb(220 228 238 / 0.07);
+  overflow-wrap: anywhere;
+}
+.omav-chat-user {
+  width: fit-content;
+  max-width: 85%;
+  margin: 0 0 12px auto;
+  padding: 8px 12px;
+  border-radius: 14px 14px 5px 14px;
+  background: var(--color-ice);
+  color: var(--color-abyss);
+  font-size: 13.5px;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+.omav-chat-chip {
+  padding: 6px 10px;
+  border-radius: 9px;
+  color: rgb(233 237 243 / 0.85);
+  font-size: 12.5px;
+  line-height: 1.3;
+  text-align: left;
+  box-shadow: inset 0 0 0 1px rgb(220 228 238 / 0.16);
+  cursor: pointer;
+  transition:
+    background-color var(--dur-ui) ease,
+    box-shadow var(--dur-ui) ease;
+}
+.omav-chat-chip:hover {
+  background: rgb(233 237 243 / 0.06);
+  box-shadow: inset 0 0 0 1px rgb(233 237 243 / 0.4);
+}
+.omav-chat-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: 9px;
+  background: rgb(140 200 216 / 0.13);
+  color: var(--color-signal);
+  font-size: 12.5px;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+  cursor: pointer;
+  transition: background-color var(--dur-ui) ease;
+}
+.omav-chat-action:hover {
+  background: rgb(140 200 216 / 0.22);
+}
+.omav-chat-input {
+  font-size: 13.5px;
+}
+.omav-chat-typing {
+  display: flex;
+  gap: 4px;
+  width: fit-content;
+  margin-bottom: 12px;
+  padding: 12px 13px;
+  border-radius: 14px 14px 14px 5px;
+  background: rgb(233 237 243 / 0.045);
+}
+.omav-chat-typing span {
+  width: 14px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--color-ice);
+  opacity: 0.25;
+  animation: omavChatBands 0.9s ease-in-out infinite;
+}
+.omav-chat-typing span:nth-child(2) {
+  animation-delay: 0.14s;
+}
+.omav-chat-typing span:nth-child(3) {
+  animation-delay: 0.28s;
+}
+@keyframes omavChatBands {
+  50% {
+    opacity: 0.95;
+  }
+}
+@media (max-width: 639px) {
+  .omav-chat {
+    right: 14px;
+    bottom: 14px;
+    transition: bottom 0.4s var(--ease-out-quint);
+  }
+  /* Clear of the hero globe's dock and its hint */
+  .omav-chat.is-raised {
+    bottom: 118px;
+  }
+  .omav-chat-launcher {
+    width: 52px;
+    height: 52px;
+  }
+  /* A sheet across the screen, whatever the launcher's position */
+  .omav-chat-panel {
+    position: fixed;
+    left: 8px;
+    right: 8px;
+    bottom: 8px;
+    width: auto;
+    height: min(640px, calc(100dvh - 24px));
+  }
+  /* 16px stops iOS zooming the page when the field is focused */
+  .omav-chat-input {
+    font-size: 16px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .omav-bot-eye,
+  .omav-bot-mark.is-thinking .omav-bot-eye,
+  .omav-chat-panel,
+  .omav-chat-typing span {
+    animation: none;
+  }
+}
