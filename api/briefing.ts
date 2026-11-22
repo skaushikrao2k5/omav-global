@@ -2,7 +2,9 @@
 // Saves a briefing form enquiry to Sanity. Configure in Vercel > Settings >
 // Environment Variables: SANITY_API_WRITE_TOKEN, VITE_SANITY_PROJECT_ID
 // (and optionally SANITY_ENQUIRY_DATASET, default "enquiries").
-import { handleBriefing } from './_lib/briefing';
+// The ".js" extension is required: Vercel runs this as an ES module, where
+// Node needs full file names (TypeScript resolves it to briefing.ts)
+import { handleBriefing } from './_lib/briefing.js';
 
 const json = (status: number, body: unknown) =>
   new Response(JSON.stringify(body), {
